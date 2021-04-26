@@ -1,0 +1,28 @@
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+
+//config object can be found in the firebase console, in the script to link to a web app
+const config = {
+    apiKey: "AIzaSyA_7Yc3wdApnjhKjw0seOUjwNUHHpRB15Y",
+    authDomain: "crwn-db-6670c.firebaseapp.com",
+    projectId: "crwn-db-6670c",
+    storageBucket: "crwn-db-6670c.appspot.com",
+    messagingSenderId: "618691396137",
+    appId: "1:618691396137:web:a4ff10c38cb82bf690d238",
+    measurementId: "G-WLRT7DCW6F"
+};
+
+firebase.initializeApp(config);
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+//google account authenticator
+const provider = new firebase.auth.GoogleAuthProvider();
+//google sign in popup
+provider.setCustomParameters({prompt: "select_account"});
+//signInWithPopup can be set to take other provider parameters, including twitter github etc
+//these providers must all be enabled in the firebase console
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+export default firebase;
