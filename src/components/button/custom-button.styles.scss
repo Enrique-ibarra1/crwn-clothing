@@ -26,6 +26,10 @@
   &.google-sign-in {
     background-color: #4285f4;
     color: white;
+    width: 150px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
 
     &:hover {
       background-color: #357ae8;

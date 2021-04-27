@@ -14,13 +14,16 @@ const config = {
     measurementId: "G-WLRT7DCW6F"
 };
 
-export const createUserProfileDocument = async(userAuth, additonalData) => {
-    if(!userAuth) return;
+firebase.initializeApp(config);
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+
     const userRef = firestore.doc(`users/${userAuth.uid}`);
-    //returns an snapshot object of data if the user exists at this location
+
     const snapShot = await userRef.get();
-    //snapShot.exists will return false or true if the doc exists
-    if(!snapShot.exists) {
+
+    if (!snapShot.exists) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
         try {
@@ -28,25 +31,21 @@ export const createUserProfileDocument = async(userAuth, additonalData) => {
                 displayName,
                 email,
                 createdAt,
-                ...additonalData
-            })
-        } catch(err) {
-            console.log('error creating user', err.message)
+                ...additionalData
+            });
+        } catch (error) {
+            console.log('error creating user', error.message);
         }
     }
-    return userRef;
-}
 
-firebase.initializeApp(config);
+    return userRef;
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
-//google account authenticator
+
 const provider = new firebase.auth.GoogleAuthProvider();
-//google sign in popup
-provider.setCustomParameters({prompt: "select_account"});
-//signInWithPopup can be set to take other provider parameters, including twitter github etc
-//these providers must all be enabled in the firebase console
+provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
