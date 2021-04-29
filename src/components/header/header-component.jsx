@@ -1,7 +1,5 @@
 import React from 'react'
-import './header.styles.scss';
 import {ReactComponent as Logo} from '../../assets/crown.svg'
-import {Link} from 'react-router-dom';
 import {auth} from '../../firebase/firebase.utils';
 import {createStructuredSelector} from 'reselect';
 import {selectCartHidden} from '../../redux/cart/cart.selectors';
@@ -9,29 +7,31 @@ import {selectCurrentUser} from '../../redux/user/user.selector';
 import { connect } from 'react-redux';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './header.styles';
 
 const Header = ({currentUser, hidden}) => {
     return (
-        <div className="header">
-            <Link className="logo-container" to="/">
+        <HeaderContainer>
+            <LogoContainer  to="/">
                 <Logo className="logo" />
-            </Link>
-            <div className="options">
-                <Link className="option" to="/shop">SHOP</Link>
-                <Link className="option" to="/contact">CONTACT</Link>
-                {/* sign in/sign out option */}
-                {
-                    //if current user !== null, render div with sign out functional callback
-                    currentUser ?
-                    <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>
-                    //else render link to sign in page
-                    :
-                    <Link className="option" to="/signin">SIGN IN</Link>
-                }
-                <CartIcon />
-            </div>
+            </LogoContainer>
+            <OptionsContainer>
+                <OptionLink  to="/shop">SHOP</OptionLink>
+                <OptionLink  to="/contact">CONTACT</OptionLink>
+                    {/* sign in/sign out option */}
+                    {
+                        //if current user !== null, render div with sign out functional callback
+                        currentUser ?
+                        <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>
+                        //else render link to sign in page
+                        :
+                        <OptionLink  to="/signin">SIGN IN</OptionLink>
+                    }
+                    <CartIcon />
+            </OptionsContainer>
             {hidden ? null : <CartDropdown />}
-        </div>
+        </HeaderContainer>
+        
     )
 }
 const mapStateToProps = createStructuredSelector({
