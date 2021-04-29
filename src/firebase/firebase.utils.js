@@ -20,8 +20,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
     const userRef = firestore.doc(`users/${userAuth.uid}`);
+    // const collectionRef = firestore.collection('users');
 
     const snapShot = await userRef.get();
+    // const collectionSnapshot = await collectionRef.get();
+    // console.log({collectionSnapshot});
 
     if (!snapShot.exists) {
         const { displayName, email } = userAuth;
@@ -40,6 +43,19 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
     return userRef;
 };
+
+//the following function is used to create collections for any data it recieves.
+// export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+//     const collectionRef = firestore.collection(collectionKey);
+//     // console.log(collectionRef);
+//     const batch = firestore.batch();
+//     objectsToAdd.forEach(obj => {
+//         const newDocRef = collectionRef.doc();
+//         batch.set(newDocRef, obj)
+//     });
+
+//     return await batch.commit();
+// }
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
