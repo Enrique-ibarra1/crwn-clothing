@@ -5,7 +5,7 @@ const StripeCheckoutButton = ({price}) => {
     const priceForStripe = price * 100;
     const API_KEY = process.env.REACT_APP_API_KEY;
     const publishableKey = API_KEY;
-    const ENVKEY = '';
+    // const ENVKEY = '';
 
     const onToken = token => {
         console.log(token);
