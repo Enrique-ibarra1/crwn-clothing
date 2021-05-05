@@ -19,7 +19,7 @@ class App extends Component {
 
   componentDidMount() {
     const {setCurrentUser} = this.props;
-
+    //onAuthStateChange is an observer that detects state for the users sign in state
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       //set state to the user object returned by auth
       if (userAuth) {
