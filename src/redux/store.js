@@ -4,7 +4,7 @@ import rootReducer from './root-reducer';
 import { persistStore } from 'redux-persist';
 // import ReduxThunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import {fetchCollectionsStart} from './shop/shop.sagas'
+import rootSaga from './root-saga';
 const sagaMiddleware = createSagaMiddleware();
 
 //logger will only be availaable in production
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 //applyMiddleware can take in any amount of middleware
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
 //here pass in created sagas
-sagaMiddleware.run(fetchCollectionsStart)
+sagaMiddleware.run(rootSaga)
 
 //a session-persisted version of our store
 const persistor = persistStore(store);

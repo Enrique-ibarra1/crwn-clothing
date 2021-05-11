@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const buttonStyles = css`
     background-color: black;
@@ -22,15 +22,9 @@ const invertedButtonStyles = css`
     }
 `;
 
-const googleSignInStyles = css `
-background-color: #4285f4;
+const googleSignInStyles = css`
+    background-color: #4285f4;
     color: white;
-    width: 150px;
-    display: flex;
-    margin-top: 10px;
-    justify-content: center;
-    font-size: 10px;
-
     &:hover {
         background-color: #357ae8;
         border: none;
@@ -38,12 +32,13 @@ background-color: #4285f4;
 `;
 
 const getButtonStyles = props => {
-    if(props.isGoogleSignIn) {
+    if (props.isGoogleSignIn) {
         return googleSignInStyles;
     }
 
     return props.inverted ? invertedButtonStyles : buttonStyles;
-}
+};
+
 export const CustomButtonContainer = styled.button`
     min-width: 165px;
     width: auto;
